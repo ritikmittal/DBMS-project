@@ -1,0 +1,109 @@
+<%- include('partials/header') %>
+
+<div class="top-ex-3">
+<form action="/dashboard" method="get" class="form-in7" >
+    <button type="submit" class="button-a dv-b" >Home</button>
+</form>
+<form action="/searchUser" method="POST" class="ser-f-2">
+    <input type="text" class="in-ex" name="username" placeholder="Enter a name ...">
+    <button type="submit" class="button-a">Search User</button>
+</form>
+</div>
+
+<hr class="hr-profile-dash-board hr2-bu" />
+
+<div class="ex-d-s">
+    <% pages.forEach((page) => { %>
+    <div class="card-to-show" >
+        <div class="card-header-show">
+            <img src="data:<%=page.user_image.contentType%>;base64,<%=page.user_image.data%>" class="img-thumbnail-card" alt="...">
+            <a href="/getProfile/<%=page.author_id%>"><span class="user-name-card" ><%= page.author_name %></span></a>
+        </div>
+        <hr class="card-seperator">
+        <a href="/getPage/<%=page.id%>" class="ds-a-tg">
+            <div class="card-body-show cut-text">
+                <%- page.content%>
+            </div>
+        </a>
+
+        <hr class="card-seperator">
+        <div class="card-footer-show" id="<%= page.author_name%>">
+                <span id="<%= page.id%>">
+                    <button class="like-button icon-like icon-footer"  type="submit" ><i class="far fa-heart"></i></button>
+                    <span class="icon-footer num-likes"><sup><%= page.likes %></sup></span>
+                    <button type="submit" class="icon-comment icon-footer" > <i class="far fa-comment"></i></button>
+
+                    <button type="submit" class="add-to-bookmark-button icon-bookmark icon-footer"> <i class="far fa-bookmark"></i></button>
+                </span>
+        </div>
+        <hr class="card-seperator">
+    </div>
+    <%})%>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script >
+    $(".like-button").each(function() {
+        let id = $(this).parent().attr('id')
+        let chi = $(this).children()
+        $(this).on("click" ,() => {
+            axios({
+                method: 'post',
+                url: '/likeThisPost',
+                params: {
+                    pageId: id,
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                    chi.attr("class", "fas fa-heart");
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+    })
+    $(".add-to-bookmark-button").each(function() {
+        let id = $(this).parent().attr('id')
+        let chi = $(this).children()
+        let authorName = $(this).parent().parent().attr('id')
+        $(this).on("click" ,() => {
+            axios({
+                method: 'post',
+                url: '/addNewBookMark',
+                params: {
+                    pageId: id,
+                    authorName : authorName
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                    chi.attr("class", "fas fa-bookmark");
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+    })
+    // var retval = []
+    // $('.like-button').each(function(){
+    //     retval.push($(this).attr('id'))
+    // })
+    // console.log(retval)
+</script>
+
+<!--<div class="jumbotron centered">-->
+<!--    <div class="container">-->
+<!--        <form action="/searchUser" method="POST">-->
+<!--            <div class="form-group">-->
+<!--                <label for="username">UserName</label>-->
+<!--                <input type="text" class="form-control" name="username">-->
+<!--            </div>-->
+<!--            <button type="submit" class="btn btn-dark">Search User</button>-->
+<!--        </form>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<%- include('partials/footer') %>

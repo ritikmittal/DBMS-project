@@ -1,0 +1,39 @@
+<%- include('partials/header'); -%>
+
+
+<img src="data:<%=image.contentType%>;base64,<%=image.data%>" class="prfile-icon" alt="...">
+<h1 class="gtp-name"> <%= user.username %> </h1>
+<form action="/postAddAFriend" method="post" class="gtp-add-f-but ">
+    <input hidden value="<%= user._id %>" name="profileId">
+    <input hidden value="<%= user.username %>" name="profileName">
+    <button type="submit" class="button-a" >Add As Friend</button>
+</form>
+<hr class="card-seperator">
+
+<% if( isSelf === true )  {%>
+    <div class="p-d-info">
+        <form action="/myDiaries" method="get" class="form-in">
+            <button type="submit" class="button-a p-m-but"> My Dairies </button>
+        </form>
+        <form action="/getFriendList" method="get" class="form-in">
+            <button type="submit" class="button-a p-m-but"> My Friends </button>
+        </form>
+    </div>
+<% } else { %>
+    <p class="p-d-sta"> Dairies by <%= user.username%> </p>
+    <div class="p-d-info">
+        <% user.myDiaries.forEach(diary => {%>
+        <form action="/getDiary/<%=diary.diary_id%>" method="get">
+            <button type="submit" class="button-a p-d-but"><%= diary.diary_name %></button>
+        </form>
+        <% })%>
+    </div>
+<% } %>
+
+<hr class="card-seperator">
+<form action="/dashboard" method="get" class="logout">
+    <button type="submit" class="button-a"> Home </button>
+</form>
+
+
+<%- include('partials/footer'); -%>

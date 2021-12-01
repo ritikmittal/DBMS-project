@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+<form action="/dashboard" method="get" class="gtp-add-f-but dvf-1">
+    <button type="submit" class="button-a" >Home</button>
+</form>
+
+<div class="main-icon">
+    <span><i class="fas fa-book-open"></i></span>
+</div>
+<hr class="hr-profile-dash-board">
+
+<div class="cont-tp">
+    <h1>Create New Diary : </h1>
+    <div class="card-tp">
+        <form class="" action="/newDiary" method="post">
+            <div class="unt-inp">
+                <label for="title" class="unt-lbl" >Dairy Name : </label>
+                <input type="text" id="title" class="unt-inp"  name="diaryName" value="">
+            </div>
+            <div class="unt-inp">
+                <label for="title" class="unt-lbl" > Keep it private : </label>
+                <input type="checkbox" name="isPrivate" value="" class="ex-cent" >
+            </div>
+            <button type="submit" class="button-a but-tp" name="button">Submit</button>
+        </form>
+    </div>
+    <div class="editor-compose">
+        <p class="form-in-f-3">Note : You cannot make a dairy private from public. </p>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

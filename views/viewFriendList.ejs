@@ -1,0 +1,38 @@
+<%- include('partials/header'); -%>
+
+<h1 class="wel-msg"> Your Friends </h1>
+
+<form action="/dashboard" method="get">
+    <button type="submit"  class="button-a dv-b">Home</button>
+</form>
+
+<hr class="hr-profile-dash-board">
+
+<div class="dairy-pages-3">
+    <div class="dairy-pages">
+        <table class="dairy-table">
+            <thead class="dt-h">
+            <tr>
+                <th > Name </th>
+                <th class="dt-x"> Modify Access </th>
+            </tr>
+            </thead>
+            <tbody class="dt-b">
+            <% friends.forEach(friend => { %>
+            <tr>
+                <td><a class="dt-b-a" href="/getProfile/<%= friend.friend_id %>"> <%=friend.name%> </a></td>
+                <td>
+                    <form action="/getGrantAccess" method="get">
+                        <input type="hidden" value="<%=friend.name%>" name="friend_name">
+                        <input type="hidden" value="<%=friend.friend_id%>" name="friend_id">
+                        <button class="like-button icon-comment icon-footer" type="submit"> <i class="fas fa-universal-access"></i> </button>
+                    </form>
+                </td>
+            </tr>
+            <% })%>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('partials/footer'); -%>

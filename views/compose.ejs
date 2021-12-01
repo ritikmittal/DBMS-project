@@ -1,0 +1,34 @@
+<%- include('partials/header') %>
+
+<form action="/dashboard" method="get" >
+    <button type="submit" class="button-a dv-b" >Home</button>
+</form>
+
+<h1 class="wel-msg"> <a href="/getProfile/<%=user.id%>" class="dt-b-a">Welcome <%= user.username %> </a> </h1>
+
+
+<form method="get" action="/newDiaries" class="gtp-add-f-but dvf-1">
+    <button type="submit" class="button-a">New Diary </button>
+</form>
+<hr class="hr-profile-dash-board" />
+<div class="editor-compose" >
+    <form class="" action="/compose" method="post">
+        <div class="s-d-c-edi">
+        <label for="title">Diary</label>
+        <select name="diaryId">
+            <%  for(var i=0 ;i < diaries.length ;i++) { %>
+                <option value="<%= diaries[i].diary_id %>"> <%=  diaries[i].diary_name %></option>
+            <% } %>
+        </select>
+        </div>
+        <div class="editor-text">
+        <textarea name="content" id="Content" class="form-control" rows="20" cols="40"><%= content %></textarea>
+        <br>
+        </div>
+
+        <button type="submit" class="button-a but-tp" name="button"> Submit </button>
+    </form>
+</div>
+
+<script>tinymce.init({selector:'textarea'});</script>
+<%- include('partials/footer') %>

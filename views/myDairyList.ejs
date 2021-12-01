@@ -1,0 +1,92 @@
+<%- include('partials/header'); -%>
+
+<h1 class="wel-msg"> Welcome <%= user.username %> </h1>
+
+<form action="/dashboard" method="get">
+    <button type="submit"  class="button-a dv-b">Home</button>
+</form>
+
+<hr class="hr-profile-dash-board">
+
+<h2 class="wel-msg"> Your Dairies </h2>
+<div >
+    <% myDiaries.forEach((diary) => { %>
+    <form action="/getDiary/<%=diary.diary_id%>" method="get" class="p-d-info">
+        <button type="submit" class="button-a bu-d-l"><%= diary.diary_name %></button>
+    </form>
+    <%}) %>
+</div>
+<hr class="hr-profile-dash-board">
+
+<% if (accessCur.length > 0 ) { %>
+    <div class="dairy-pages-3">
+        <div class="dairy-pages">
+            <table class="dairy-table">
+                <caption><h3> You have access to : </h3></caption>
+                <thead class="dt-h">
+                <tr>
+                    <th class="dt-i"> Diary </th>
+                    <th>Read</th>
+                    <th>Write</th>
+                    <th>Until</th>
+                </tr>
+                </thead>
+                <tbody class="dt-b">
+                <% accessCur.forEach((diary) => { %>
+                <td > <a href="/getDiary/<%=diary.diary_id%>" class="dt-b-a"> <%= diary.diary_name %> </a></td>
+                <td><i class="fas fa-check"></i></td>
+                <% if(diary.isWrite === true) { %>
+                    <td><i class="fas fa-check"></i></td>
+                <% } else { %>
+                    <td><i class="fas fa-times"></i></td>
+                <%}%>
+                <td><%=diary.endTime.toString().substring(0, 15) %></td>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr class="card-seperator">
+<% } %>
+
+<% if (accessPast.length > 0 ) { %>
+    <div class="dairy-pages-3">
+        <div class="dairy-pages">
+            <table class="dairy-table">
+                <caption><h3> You have access to : </h3></caption>
+                <thead class="dt-h">
+                <tr>
+                    <th class="dt-i"> Diary </th>
+                    <th>Read</th>
+                    <th>Write</th>
+                    <th>Until</th>
+                </tr>
+                </thead>
+                <tbody class="dt-b">
+                <% accessPast.forEach((diary) => { %>
+                <td > <a href="/getDiary/<%=diary.diary_id%>" class="dt-b-a"> <%= diary.diary_name %> </a></td>
+                <td><i class="fas fa-check"></i></td>
+                <% if(diary.isWrite === true) { %>
+                    <td><i class="fas fa-check"></i></td>
+                <% } else { %>
+                    <td><i class="fas fa-times"></i></td>
+                <%}%>
+                <td><%=diary.endTime.toString().substring(0, 15) %></td>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr class="card-seperator">
+<% } %>
+<h2 class="wel-msg">You are following the Diaries : </h2>
+<div class="dv-f-d">
+    <div class="folo-d">
+        <% user.following.forEach((diary) => { %>
+        <a href="/getDiary/<%=diary.diary_id%>" class="dt-b-a fr-nm fr-nm2"> <%= diary.diary_name %> </a>
+        <%}) %>
+    </div>
+</div>
+
+<hr class="p-bottom">
+<%- include('partials/footer'); -%>

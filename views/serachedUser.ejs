@@ -1,0 +1,19 @@
+<%- include('partials/header'); -%>
+
+<form action="/explore" method="get" >
+    <button type="submit" class="button-a dv-b" >Back</button>
+</form>
+<h1 class="wel-msg"> Search Results :  </h1>
+<hr class="hr-profile-dash-board" />
+
+<div class = "dairy-view-main">
+    <h1> Users : </h1>
+        <% for( var i=0;i<users.length;i++){ %>
+        <img src="data:<%=users[i].user_image.contentType%>;base64,<%=users[i].user_image.data%>" class="prfile-icon">
+        <a href="/getProfile/<%= users[i]._id %>" class="user-name-pic"> <%= users[i].username %></a>
+        <hr>
+    <% } %>
+</div>
+
+
+<%- include('partials/footer'); -%>

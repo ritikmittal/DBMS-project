@@ -1,0 +1,81 @@
+<%- include('partials/header'); -%>
+
+<form action="/dashboard" method="get" >
+    <button type="submit" class="button-a dv-b" >Home</button>
+</form>
+
+<div class = "dairy-view-main">
+    <h1 class="wel-msg"> Dairy : <%= dairy.name %> </h1>
+    <p class="msg-desc"> <%= descriptionOfDairy %></p>
+    <form method="post" action="/followDairy" class="gtp-add-f-but dvf-1">
+        <input type="hidden" name="diary_id" value="<%=dairy.id%>">
+        <input type="hidden" name="diary_name" value="<%=dairy.name%>">
+        <button type="submit" class="button-a">follow + </button>
+    </form>
+    <hr class="hr-profile-dash-board" />
+    <div class="dairy-pages-3">
+        <div class="dairy-pages">
+            <table class="dairy-table">
+                <caption><h3> Pages Index : </h3></caption>
+                <thead class="dt-h">
+                <tr>
+                    <th class="dt-i">Index </th>
+                    <th>Created On</th>
+                </tr>
+                </thead>
+                <tbody class="dt-b">
+                <% dairy.page_ids.forEach(function(blogId, idx){ %>
+                <tr>
+                    <td><%= idx + 1%></td>
+                    <td><a class="dt-b-a" href="/getPage/<%= blogId.page_id%>"> <%= blogId.created_on.toString().substring(0, 15) %> </a></td>
+                </tr>
+                <%})%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr class="card-seperator">
+    <div class="dairy-pages-3">
+        <div class="dairy-pages">
+            <table class="dairy-table">
+                <caption><h3> People with access : </h3></caption>
+                <thead class="dt-h">
+                <tr>
+                    <th class="dt-i"> Name </th>
+                    <th>Read</th>
+                    <th>Write</th>
+                    <th>Until</th>
+                </tr>
+                </thead>
+                <tbody class="dt-b">
+                <% dairy.access.forEach((user) => { %>
+                    <td > <a href="/getProfile/<%=user.user_id%>" class="dt-b-a"> <%= user.user_name %> </a></td>
+                    <td><i class="fas fa-check"></i></td>
+                <% if(user.isWrite === true) { %>
+                    <td><i class="fas fa-check"></i></td>
+                <% } else { %>
+                    <td><i class="fas fa-times"></i></td>
+                <%}%>
+                    <td><%=user.endTime.toString().substring(0, 15) %></td>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr class="card-seperator">
+
+    <% if(dairy.isPrivate === false) {%>
+    <div class="dv-f-d">
+        <p class="dv-f-p"> Followers : </p>
+        <div class="folo-d">
+            <%dairy.followers.forEach(follower => {%>
+            <a href="/getProfile/<%=follower.user_id%>" class="dt-b-a fr-nm"> <%= follower.name %> </a>
+            <% } ) %>
+        </div>
+    </div>
+    <% } %>
+    <hr class="p-bottom">
+
+</div>
+
+<%- include('partials/footer'); -%>

@@ -1,0 +1,36 @@
+<%- include('partials/header'); -%>
+
+<form action="/dashboard" method="get" >
+    <button type="submit" class="button-a dv-b" >Home</button>
+</form>
+<h2 class="wel-msg"> Granting Access to <%= friend.name %> </h2>
+<hr class="hr-profile-dash-board" />
+
+<div class="cont-tp">
+    <div class="card-tp">
+        <form action="/postGrantAccess" method="post">
+            <input type="hidden" value="<%=friend.id%>" name="friend_id">
+            <input type="hidden" value="<%=friend.name%>" name="friend_name">
+            <div class="unt-inp ga-ex-mt">
+                <label class="unt-lbl">Select Diary :</label>
+                <select name="diary_id" class="unt-inp ex-cent">
+                    <% user.myDiaries.forEach(diary => {%>
+                        <option value="<%=diary.diary_id%>" > <%=diary.diary_name%></option>
+                    <% }) %>
+                 </select>
+            </div>
+            <div class="unt-inp">
+                <label class="unt-lbl">Valid untill :</label>
+                <input type="date" name="end_time" class="ex-cent" value="2021-05-20">
+            </div>
+            <div class="unt-inp">
+                <label class="unt-lbl">Permit to Write :</label>
+                <input type="checkbox" name="is_write" class="ex-cent">
+            </div>
+            <button type="submit" class="button-a but-tp">Grant Access</button>
+        </form>
+    </div>
+</div>
+
+
+<%- include('partials/footer'); -%>

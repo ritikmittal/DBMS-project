@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+<div class="main-icon">
+  <span><i class="fas fa-book-open"></i></span>
+</div>
+
+<div class="cont-tp">
+  <h1>Login</h1>
+  <div class="card-tp">
+    <form action="/login" method="POST">
+      <div class="unt-inp">
+        <label for="username" class="unt-lbl">UserName</label>
+        <input type="text" class="unt-inp" name="username">
+      </div>
+      <div class="unt-inp">
+        <label for="password"  class="unt-lbl">Password</label>
+        <input type="password" class="unt-inp" name="password"/>
+      </div>
+      <button type="submit" class="button-a but-tp">Login</button>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
